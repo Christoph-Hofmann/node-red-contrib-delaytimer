@@ -5,7 +5,7 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Christoph-Hofmann/node-red-contrib-delaytimer.git"
   },
   "license": "Apache-2.0",
   "keywords": [
