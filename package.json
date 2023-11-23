@@ -1,11 +1,11 @@
 {
   "name": "node-red-contrib-delaytimer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Sends the msg through the output after the timer delay1 and a second input reached the node in between the delay2.",
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Christoph-Hofmann/node-red-contrib-delaytimer"
   },
   "license": "Apache-2.0",
   "keywords": [

@@ -16,15 +16,15 @@
 
 module.exports = function(RED) {
     "use strict";
-    function DelayTimer(n) {
-        RED.nodes.createNode(this, n);
+    function DelayTimer(config) {
+        RED.nodes.createNode(this, config);
 
-        this.units = n.units || "Second";
-        this.durationType = n.durationType;
-        this.delay1 = parseInt(RED.util.evaluateNodeProperty(n.delay1, this.durationType, this, null), 10) || 360;
-        this.delay2 = parseInt(RED.util.evaluateNodeProperty(n.delay2, this.durationType, this, null), 10) || 60;
-        this.payloadval = n.payloadval || "0";
-        this.payloadtype = n.payloadtype || "num";
+        this.units = config.units || "Second";
+        this.durationType = config.durationType;
+        this.delay1 = parseInt(RED.util.evaluateNodeProperty(config.delay1, this.durationType, this, null), 10) || 360;
+        this.delay2 = parseInt(RED.util.evaluateNodeProperty(config.delay2, this.durationType, this, null), 10) || 60;
+        this.payloadval = config.payloadval || "0";
+        this.payloadtype = config.payloadtype || "num";
 
         if (this.delay1 <= 0) {
             this.delay1 = 0;
@@ -63,11 +63,18 @@ module.exports = function(RED) {
         node.status({});
 
         this.on("input", function(msg) {            
+            node.topi = msg.topic;
             if(running2 === true ) {
                 var msg2 = RED.util.cloneMessage(msg);
                 running2 = false;
                 msg2.payload = node.payloadval;
                 node.status({fill: "red", shape: "dot", text: "message send"});
+                var t = undefined;
+                try {
+                    t = RED.util.evaluateNodeProperty(config.topic,config.topicType || "str",node,msg) || node.topi;
+                }
+                catch(e) { }
+                if (t !== undefined) { msg2.topic = t; }
                 node.send(msg2);
                 timeout3 = setTimeout(function() {
                     running  = false;

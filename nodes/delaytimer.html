@@ -25,7 +25,9 @@
             units: {value: "Second"},
             payloadtype: {value: 'num'},
             payloadval: {value: "0"},
-            name: {value: ""}
+            name: {value: ""},
+            topic: {value: 'topic', validate: (RED.validators.hasOwnProperty('typedInput')?RED.validators.typedInput('topicType'):function(v) { return true})},
+            topicType: {value: 'msg'},
         },
         inputs: 1,
         outputs: 1,
@@ -60,6 +62,11 @@
                 typeField: $("#node-input-durationType"),
                 types: ['num', 'env']
             });
+            $('#node-input-topic').typedInput({
+                default: 'str',
+                typeField: $("#node-input-topicType"),
+                types: ['str','msg','flow','global']
+            });
 
 
 
@@ -89,12 +96,17 @@
         <input type="text" id="node-input-delay2" style="text-align:end; width:270px !important">
     </div>
     <div class="form-row">
-        <label for="node-input-payloadtype"><i class="fa fa-envelope"></i> 2nd Payload</label>
+        <label for="node-input-payloadtype"><i class="fa fa-envelope"></i>Payload</label>
         <input type="hidden" id="node-input-payloadtype">
         <input style="width: 70%" type="text" id="node-input-payloadval">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <label for="node-input-topic" style="padding-left:25px; margin-right:-25px">Topic</label>
+        <input type="text" id="node-input-topic">
+        <input type="hidden" id="node-input-topicType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
         <input type="text" id="node-input-name" placeholder="Name"></input>
     </div>
 </script>

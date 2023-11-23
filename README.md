@@ -6,4 +6,5 @@ Sends the `msg` through the output after the set timer duration only if a second
 This is like the built in delay function of node-red, but with the ability to not only restart the timer.
 
 0.0.1 - Initial Release
+0.1.2 - Add Topic to the output
 
